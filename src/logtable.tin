@@ -82,5 +82,39 @@ proc ::logtable::dashline {args} {
     return $dashline
 }
 
+proc ::logtable::format_string {args} {
+    # Return a format string for use with formatting table rows
+    #
+    # Arguments:
+    #   collist -- Alternating list of column widths and column titles
+    set myoptions {
+	{collist.arg "10 title" "Alternating list of column widths and titles"}
+    }
+    array set arg [::cmdline::getoptions args $myoptions]
+    foreach {width title} [join $arg(collist)] {
+	# - means left justify
+	# * means the next argument must be an integer field width
+	# s means no conversion
+	append fstring "%-*s "
+	}
+    return $fstring
+}
+
+proc ::logtable::header_line {args} {
+    # Return the table header line (formatted list of column titles)
+    #
+    # Arguments
+    #   collist -- List of alternating width and titles
+    set myoptions {
+	{collist.arg "10 title" "Alternating list of column widths and titles"}
+    }
+    array set arg [::cmdline::getoptions args $myoptions]
+    foreach { width title } [join $column_list] {
+	set header_bit [format "%-*s " $width $title]
+	append hline $header_bit
+    }
+    return $hline
+}
+
 # Finally, provide the package
 package provide logtable @VERSION@
