@@ -205,6 +205,24 @@ proc test_engineering_notation_suffix { number expected_suffix} {
     }
 }
 
+proc test_header_line { collist } {
+    # Tests that header_line produces a header with the correct length and contents
+    info_message "Test header line"
+    set hline [::logtable::header_line -collist $collist]
+    # Indenpendent calculation of the line length
+    set found_length 0
+    foreach { width title } [join $collist] {
+	set found_length [expr $found_length + $width]
+    }
+    set header_line_length [string length $hline]
+    if { $found_length eq $header_line_length } {
+	pass_message "Header line length is correct"
+    } else {
+	fail_message "Header line expected $found_length, got $header_line_length"
+	exit
+    }
+}
+
 ########################## Main entry point ##########################
 
 test_require_package
@@ -212,4 +230,6 @@ test_require_package
 test_intlist_length 5
 
 test_engineering_notation_suffix 0.0123 m
+
+test_header_line {5 "foo" 23 "bar" 12 "baz"}
 

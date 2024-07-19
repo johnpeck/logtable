@@ -95,7 +95,7 @@ proc ::logtable::format_string {args} {
 	# - means left justify
 	# * means the next argument must be an integer field width
 	# s means no conversion
-	append fstring "%-*s "
+	append fstring "%-*s"
 	}
     return $fstring
 }
@@ -109,8 +109,8 @@ proc ::logtable::header_line {args} {
 	{collist.arg "10 title" "Alternating list of column widths and titles"}
     }
     array set arg [::cmdline::getoptions args $myoptions]
-    foreach { width title } [join $column_list] {
-	set header_bit [format "%-*s " $width $title]
+    foreach { width title } [join $arg(collist)] {
+	set header_bit [format "%-*s" $width $title]
 	append hline $header_bit
     }
     return $hline
