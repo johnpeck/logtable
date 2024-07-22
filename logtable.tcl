@@ -95,7 +95,7 @@ proc ::logtable::format_string {args} {
 	# - means left justify
 	# * means the next argument must be an integer field width
 	# s means no conversion
-	append fstring "%-*s "
+	append fstring "%-*s"
 	}
     return $fstring
 }
@@ -115,6 +115,27 @@ proc ::logtable::header_line {args} {
     }
     return $hline
 }
+
+
+proc ::logtable::table_row { args } {
+    # Return the table header line (formatted list of column titles)
+    #
+    # Arguments
+    #   collist -- List of alternating width and titles
+    set myoptions {
+	{collist.arg "10 title" "Alternating list of column widths and titles"}
+	{vallist.arg "value" "List of column values"}
+    }
+    array set arg [::cmdline::getoptions args $myoptions]
+    foreach { width title } [join $arg(collist)] {
+	lappend width_list $width
+    }
+    foreach width $width_list value $arg(vallist) {
+	append rstring [format "%-*s" $width $value]
+    }
+    return $rstring
+}
+
 
 # Finally, provide the package
 package provide logtable 1.0

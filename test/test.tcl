@@ -223,6 +223,25 @@ proc test_header_line { collist } {
     }
 }
 
+proc test_table_row { collist vallist} {
+    # Tests table row length and contents
+    info_message "Test table row"
+    set rline [::logtable::table_row -collist $collist -vallist $vallist]
+    # Independent calculation of the line length
+    set found_length [string length $rline]
+    set target_length 0
+    foreach { width title } [join $collist] {
+	set target_length [expr $target_length + $width]
+    }
+    if { $found_length eq $target_length } {
+	pass_message "Table row length is correct"
+    } else {
+	fail_message "Table row expected $target_length, got $found_length"
+	exit
+    }
+}
+
+
 ########################## Main entry point ##########################
 
 test_require_package
@@ -231,5 +250,11 @@ test_intlist_length 5
 
 test_engineering_notation_suffix 0.0123 m
 
-test_header_line {5 "foo" 23 "bar" 12 "baz"}
+set column_list [list 5 "foo" 23 "bar" 12 "baz"]
+
+test_header_line $column_list
+
+set value_list [list 3 23.5 "stew"]
+
+test_table_row $column_list $value_list
 
