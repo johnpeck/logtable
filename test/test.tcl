@@ -239,6 +239,13 @@ proc test_table_row { collist vallist} {
 	fail_message "Table row expected $target_length, got $found_length"
 	exit
     }
+    # Test string contents
+    foreach value $vallist {
+	if { [string first $value $rline] == -1 } {
+	    fail_message "Expected $value not found in $rline"
+	}
+    }
+    pass_message "Table row has correct contents"
 }
 
 
