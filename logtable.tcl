@@ -64,16 +64,16 @@ proc ::logtable::engineering_notation {args} {
     }
 }
 
-proc ::logtable::print_dictionary { dictionary } {
+proc ::logtable::print_dictionary { dictionary {pattern *} } {
     # Print a formatted version of a dictionary
     # https://wiki.tcl-lang.org/page/pdict%3A+Pretty+print+a+dict
     set longest 0
-    dict for {key -} $dict {
+    dict for {key -} $dictionary {
 	if {[string match $pattern $key]} {
 	    set longest [expr {max($longest, [string length $key])}]
 	}
     }
-    dict for {key value} [dict filter $dict key $pattern] {
+    dict for {key value} [dict filter $dictionary key $pattern] {
        puts [format "%-${longest}s = %s" $key $value]
     }
 }
