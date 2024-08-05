@@ -64,6 +64,20 @@ proc ::logtable::engineering_notation {args} {
     }
 }
 
+proc ::logtable::print_dictionary { dictionary } {
+    # Print a formatted version of a dictionary
+    # https://wiki.tcl-lang.org/page/pdict%3A+Pretty+print+a+dict
+    set longest 0
+    dict for {key -} $dict {
+	if {[string match $pattern $key]} {
+	    set longest [expr {max($longest, [string length $key])}]
+	}
+    }
+    dict for {key value} [dict filter $dict key $pattern] {
+       puts [format "%-${longest}s = %s" $key $value]
+    }
+}
+
 proc ::logtable::dashline {args} {
     # Return a dashed line the length of all columns
     #
