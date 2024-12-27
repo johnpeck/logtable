@@ -12,7 +12,7 @@ package_name = logtable
 # https://www.tcl-lang.org/man/tcl/TclCmd/package.htm
 #
 # Tin allows two digits: major.minor
-version = 1.1
+version = 1.2
 
 ######################## End of Configuration ########################
 

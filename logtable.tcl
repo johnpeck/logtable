@@ -164,9 +164,9 @@ proc ::logtable::colorputs { args } {
     }
     array set arg [::cmdline::getoptions args $myoptions]
 
-    # After cmdline is done, argv will point to the last argument
+    # After cmdline is done, args will point to the last argument
     if {[llength $args] == 1} {
-	set string $args
+	set string [join $args]
     } else {
 	puts [cmdline::usage $myoptions $usage]
 	exit 1
@@ -205,12 +205,72 @@ proc ::logtable::colorputs { args } {
 	}
     }
     if $arg(nonewline) {
-	puts -nonewline "$string$ansi(reset)"	
+	puts -nonewline $string$ansi(reset)
     } else {
-	puts "$string$ansi(reset)"
+	puts $string$ansi(reset)
     }
+}
+
+proc ::logtable::info_message { args } {
+    # Print an informational message
+    set usage "usage: info_message string"
+    set myoptions {
+    }
+    array set arg [::cmdline::getoptions args $myoptions]
+
+    # After cmdline is done, args will point to the last argument
+    if {[llength $args] == 1} {
+	set message [join $args]
+    } else {
+	puts [cmdline::usage $myoptions $usage]
+	exit 1
+    }
+    puts -nonewline "\["
+    colorputs -nonewline -color blue "info"
+    puts -nonewline "\] "
+    puts $message
+}
+
+proc ::logtable::fail_message { args } {
+    # Print a message about a failure
+    set usage "usage: fail_message string"
+    set myoptions {
+    }
+    array set arg [::cmdline::getoptions args $myoptions]
+
+    # After cmdline is done, args will point to the last argument
+    if {[llength $args] == 1} {
+	set message [join $args]
+    } else {
+	puts [cmdline::usage $myoptions $usage]
+	exit 1
+    }
+    puts -nonewline "\["
+    colorputs -nonewline -color red "fail"
+    puts -nonewline "\] "
+    puts $message
+}
+
+proc ::logtable::pass_message { args } {
+    # Print a message about a test that passed
+    set usage "usage: pass_message string"
+    set myoptions {
+    }
+    array set arg [::cmdline::getoptions args $myoptions]
+
+    # After cmdline is done, args will point to the last argument
+    if {[llength $args] == 1} {
+	set message [join $args]
+    } else {
+	puts [cmdline::usage $myoptions $usage]
+	exit 1
+    }
+    puts -nonewline "\["
+    colorputs -nonewline -color green "pass"
+    puts -nonewline "\] "
+    puts $message
 }
 
 
 # Finally, provide the package
-package provide logtable 1.1
+package provide logtable 1.2

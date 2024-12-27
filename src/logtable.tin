@@ -166,7 +166,7 @@ proc ::logtable::colorputs { args } {
 
     # After cmdline is done, args will point to the last argument
     if {[llength $args] == 1} {
-	set string $args
+	set string [join $args]
     } else {
 	puts [cmdline::usage $myoptions $usage]
 	exit 1
@@ -205,9 +205,9 @@ proc ::logtable::colorputs { args } {
 	}
     }
     if $arg(nonewline) {
-	puts -nonewline "$string$ansi(reset)"	
+	puts -nonewline $string$ansi(reset)
     } else {
-	puts "$string$ansi(reset)"
+	puts $string$ansi(reset)
     }
 }
 
@@ -220,7 +220,7 @@ proc ::logtable::info_message { args } {
 
     # After cmdline is done, args will point to the last argument
     if {[llength $args] == 1} {
-	set message $args
+	set message [join $args]
     } else {
 	puts [cmdline::usage $myoptions $usage]
 	exit 1
@@ -240,7 +240,7 @@ proc ::logtable::fail_message { args } {
 
     # After cmdline is done, args will point to the last argument
     if {[llength $args] == 1} {
-	set message $args
+	set message [join $args]
     } else {
 	puts [cmdline::usage $myoptions $usage]
 	exit 1
@@ -260,7 +260,7 @@ proc ::logtable::pass_message { args } {
 
     # After cmdline is done, args will point to the last argument
     if {[llength $args] == 1} {
-	set message $args
+	set message [join $args]
     } else {
 	puts [cmdline::usage $myoptions $usage]
 	exit 1
