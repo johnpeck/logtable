@@ -231,6 +231,46 @@ proc ::logtable::info_message { args } {
     puts $message
 }
 
+proc ::logtable::fail_message { args } {
+    # Print a message about a failure
+    set usage "usage: fail_message string"
+    set myoptions {
+    }
+    array set arg [::cmdline::getoptions args $myoptions]
+
+    # After cmdline is done, args will point to the last argument
+    if {[llength $args] == 1} {
+	set message $args
+    } else {
+	puts [cmdline::usage $myoptions $usage]
+	exit 1
+    }
+    puts -nonewline "\["
+    colorputs -nonewline -color red "fail"
+    puts -nonewline "\] "
+    puts $message
+}
+
+proc ::logtable::pass_message { args } {
+    # Print a message about a test that passed
+    set usage "usage: pass_message string"
+    set myoptions {
+    }
+    array set arg [::cmdline::getoptions args $myoptions]
+
+    # After cmdline is done, args will point to the last argument
+    if {[llength $args] == 1} {
+	set message $args
+    } else {
+	puts [cmdline::usage $myoptions $usage]
+	exit 1
+    }
+    puts -nonewline "\["
+    colorputs -nonewline -color green "pass"
+    puts -nonewline "\] "
+    puts $message
+}
+
 
 # Finally, provide the package
 package provide logtable @VERSION@
