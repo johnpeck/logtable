@@ -164,7 +164,7 @@ proc ::logtable::colorputs { args } {
     }
     array set arg [::cmdline::getoptions args $myoptions]
 
-    # After cmdline is done, argv will point to the last argument
+    # After cmdline is done, args will point to the last argument
     if {[llength $args] == 1} {
 	set string $args
     } else {
@@ -209,6 +209,26 @@ proc ::logtable::colorputs { args } {
     } else {
 	puts "$string$ansi(reset)"
     }
+}
+
+proc ::logtable::info_message { args } {
+    # Print an informational message
+    set usage "usage: info_message string"
+    set myoptions {
+    }
+    array set arg [::cmdline::getoptions args $myoptions]
+
+    # After cmdline is done, args will point to the last argument
+    if {[llength $args] == 1} {
+	set message $args
+    } else {
+	puts [cmdline::usage $myoptions $usage]
+	exit 1
+    }
+    puts -nonewline "\["
+    colorputs -nonewline -color blue "info"
+    puts -nonewline "\] "
+    puts $message
 }
 
 
