@@ -151,6 +151,66 @@ proc ::logtable::table_row { args } {
     return $rstring
 }
 
+proc ::logtable::colorputs { args } {
+    # Print a string with one of a few ANSI colors
+    #
+    # Arguments:
+    #   nonewline -- (flag) Do not put a newline at the end
+    #   color -- red, green, yellow, blue, magenta, cyan, white
+    set usage "usage: colorputs \[options\] string"
+    set myoptions {
+	{nonewline "Suppress the newline at the end of the string"}
+	{color.arg "red" "red, green, yellow, blue, magenta, cyan, white"}
+    }
+    array set arg [::cmdline::getoptions args $myoptions]
+
+    # After cmdline is done, argv will point to the last argument
+    if {[llength $args] == 1} {
+	set string $args
+    } else {
+	puts [cmdline::usage $myoptions $usage]
+	exit 1
+    }
+    set colorlist [list black red green yellow blue magenta cyan white]
+    set index 30
+    foreach fgcolor $colorlist {
+	set ansi(fg,$fgcolor) "\033\[1;${index}m"
+	incr index
+    }
+    set ansi(reset) "\033\[0m"
+    switch -nocase $arg(color) {
+	"red" {
+	    puts -nonewline "$ansi(fg,red)"
+	}
+	"green" {
+	    puts -nonewline "$ansi(fg,green)"
+	}
+	"yellow" {
+	    puts -nonewline "$ansi(fg,yellow)"
+	}
+	"blue" {
+	    puts -nonewline "$ansi(fg,blue)"
+	}
+	"magenta" {
+	    puts -nonewline "$ansi(fg,magenta)"
+	}
+	"cyan" {
+	    puts -nonewline "$ansi(fg,cyan)"
+	}
+	"white" {
+	    puts -nonewline "$ansi(fg,white)"
+	}
+	default {
+	    puts "No matching color"
+	}
+    }
+    if $arg(nonewline) {
+	puts -nonewline "$string$ansi(reset)"	
+    } else {
+	puts "$string$ansi(reset)"
+    }
+}
+
 
 # Finally, provide the package
-package provide logtable 1.0
+package provide logtable 1.1
