@@ -273,4 +273,4 @@ proc ::logtable::pass_message { args } {
 
 
 # Finally, provide the package
-package provide logtable 1.2
+package provide logtable 1.3
