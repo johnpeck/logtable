@@ -6,6 +6,6 @@ package require tin 1.0
 # directories during installation.
 set package_name logtable
 
-set dir [tin mkdir -force $package_name 1.0]
+set dir [tin mkdir -force $package_name 1.1]
 file copy $package_name.tcl $dir
 file copy pkgIndex.tcl $dir

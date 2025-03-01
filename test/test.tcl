@@ -129,7 +129,6 @@ proc indented_message { message } {
     puts $message
 }
 
-
 proc test_require_tin {} {
     # Test if Tin is installed
     info_message "Test Tin installation"
@@ -200,7 +199,7 @@ proc test_engineering_notation_suffix { number expected_suffix} {
 	pass_message "engineering_notation suffix is correct"
 	return
     } else {
-	fail_message "Expected suffix of m for $number, $suffix"
+	fail_message "Expected suffix of $expected_suffix for $number, $suffix"
 	exit
     }
 }
@@ -247,7 +246,6 @@ proc test_table_row { collist vallist} {
     }
     pass_message "Table row has correct contents"
 }
-
 
 ########################## Main entry point ##########################
 

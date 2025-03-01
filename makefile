@@ -12,10 +12,9 @@ package_name = logtable
 # https://www.tcl-lang.org/man/tcl/TclCmd/package.htm
 #
 # Tin allows two digits: major.minor
-version = 1.0
+version = 1.1
 
 ######################## End of Configuration ########################
-
 
 usage_text_width = 20
 indent_text_width = 15
@@ -49,7 +48,6 @@ bake:
 .PHONY: install
 install:
 	tclsh install.tcl
-
 
 .PHONY: test
 test:
