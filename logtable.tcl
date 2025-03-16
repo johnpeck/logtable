@@ -277,4 +277,4 @@ proc ::logtable::warn_message { args } {
 }
 
 # Finally, provide the package
-package provide logtable 1.4
+package provide logtable 1.5

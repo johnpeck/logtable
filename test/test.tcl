@@ -9,6 +9,18 @@ set invoked_directory [pwd]
 set test_directory_parts [file split $test_directory]
 set package_directory [file join {*}[lrange $test_directory_parts 0 end-1]]
 
+set OS [lindex $tcl_platform(os) 0]
+if { $OS == "Windows" } {
+    # Let Tcl put things wherever it wants.  We don't have to worry
+    # about root access.
+} else {
+    # We're on Linux, and we want to avoid installing into directories
+    # requiring root access.
+    lappend auto_path ~/.local/share/tcltk
+}
+
+# Finally, we can search in the local package directory if everything
+# else fails.
 lappend auto_path $package_directory
 
 proc intlist {start points} {
