@@ -16,6 +16,19 @@ version = 1.4
 
 ######################## End of Configuration ########################
 
+# Detect the platform
+ifeq ($(OS),Windows_NT)
+  # is Windows_NT on XP, 2000, 7, Vista, 10...
+  detected_OS := Windows
+  platform = Windows
+  install_directory = $(shell tclsh libloc.tcl)
+else
+  # same as "uname -s"
+  detected_OS := $(shell uname)
+  platform = Linux
+  install_directory = ~/.local/share/tcltk
+endif
+
 usage_text_width = 20
 indent_text_width = 15
 target_text_width = 15
@@ -27,7 +40,7 @@ target_text_width = 15
 
 # Default target.
 help:
-	@echo "Makefile for $(package_name)"
+	@echo "Makefile for $(package_name) on $(platform)"
 	@printf "%$(indent_text_width)s %-$(target_text_width)s %s\n" \
           "make" "bake" \
           "Create tcl files from tin templates for version $(version)"
@@ -36,7 +49,7 @@ help:
           "Test package"
 	@printf "%$(indent_text_width)s %-$(target_text_width)s %s\n" \
           "(sudo) make" "install" \
-          "Install package into $(shell tclsh libloc.tcl)"
+          "Install package into $(install_directory)"
 	@printf "%$(indent_text_width)s %-$(target_text_width)s %s\n" \
           "make" "clean" \
           "Remove generated files"
