@@ -10,11 +10,11 @@ set OS [lindex $tcl_platform(os) 0]
 if { $OS == "Windows" } {
     # Let Tcl put things wherever it wants.  We don't have to worry
     # about root access.
-    set dir [tin mkdir -force $package_name 1.5]
+    set dir [tin mkdir -force $package_name 1.6]
 } else {
     # We're on Linux, and we want to avoid installing into directories
     # requiring root access.
-    set dir [tin mkdir -force ~/.local/share/tcltk $package_name 1.5]
+    set dir [tin mkdir -force ~/.local/share/tcltk $package_name 1.6]
 }
 
 file copy $package_name.tcl $dir

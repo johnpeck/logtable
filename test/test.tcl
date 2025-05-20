@@ -259,6 +259,29 @@ proc test_table_row { collist vallist} {
     pass_message "Table row has correct contents"
 }
 
+proc test_feedback_message { message } {
+    # Tests presence and function of feedback messages like pass, warn, and fail
+    info_message "Test sending $message message"
+    try {
+	switch $message {
+	    "pass" {
+		::logtable::pass_message "A pass message"
+	    }
+	    "fail" {
+		::logtable::fail_message "A fail message"
+	    }
+	    "warn" {
+		::logtable::warn_message "A warning message"
+	    }
+	}
+    } trap {} {msg optdict} {
+	fail_message "Failed to send $message message"
+	indented_message "$msg"
+	exit
+    }
+    pass_message "Sent $message message"
+}
+
 ########################## Main entry point ##########################
 
 test_require_package
@@ -274,4 +297,12 @@ test_header_line $column_list
 set value_list [list 3 23.5 "stew"]
 
 test_table_row $column_list $value_list
+
+test_feedback_message "fail"
+
+test_feedback_message "pass"
+
+test_feedback_message "warn"
+
+test_feedback_message "info"
 

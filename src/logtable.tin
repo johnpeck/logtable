@@ -216,9 +216,9 @@ proc ::logtable::info_message { args } {
     puts $message
 }
 
-proc ::logtable::fail_message { args } {
-    # Print a message about a failure
-    set usage "usage: fail_message string"
+proc ::logtable::pass_message { args } {
+    # Print a message about a test passing
+    set usage "usage: pass_message string"
     set myoptions {
     }
     array set arg [::cmdline::getoptions args $myoptions]
@@ -231,7 +231,7 @@ proc ::logtable::fail_message { args } {
 	exit 1
     }
     puts -nonewline "\["
-    colorputs -nonewline -color red "fail"
+    colorputs -nonewline -color green "pass"
     puts -nonewline "\] "
     puts $message
 }
